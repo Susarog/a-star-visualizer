@@ -1,0 +1,62 @@
+#root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: blue;
+}
+.main {
+  display: grid;
+  grid-template-rows: repeat(19, 30px);
+  grid-template-columns: repeat(40, 30px);
+  overflow: hidden;
+}
+.node {
+  user-select: none;
+  touch-action: none;
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  border: 1px solid grey;
+}
+.visited {
+  user-select: none;
+  touch-action: none;
+  background-color: orange;
+  width: 30px;
+  height: 30px;
+}
+.shortest-path {
+  user-select: none;
+  touch-action: none;
+  background-color: yellow;
+  width: 30px;
+  height: 30px;
+}
+
+.wall {
+  user-select: none;
+  touch-action: none;
+  background-color: black;
+  width: 30px;
+  height: 30px;
+}
+.start {
+  user-select: none;
+  touch-action: none;
+  background-color: green;
+  width: 30px;
+  height: 30px;
+}
+.finish {
+  user-select: none;
+  touch-action: none;
+  background-color: red;
+  width: 30px;
+  height: 30px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
