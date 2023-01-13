@@ -8,6 +8,7 @@ const Node = ({
   setGraph,
   i,
   j,
+  playing,
 }: {
   mouseDown: boolean;
   type: NodeType;
@@ -15,6 +16,7 @@ const Node = ({
   graph: GraphType;
   i: number;
   j: number;
+  playing: boolean;
 }) => {
   const [nodeType, setNodeType] = useState(type);
 
@@ -22,40 +24,40 @@ const Node = ({
     setNodeType(type);
   }, [type]);
   const draggable = () => {
-    if (nodeType === 'start' || nodeType === 'finish') {
+    if (playing || nodeType === 'start' || nodeType === 'finish') {
       return;
     }
     if (mouseDown) {
-      if (nodeType === 'node') {
-        const newArray = graph.map((arr) => {
-          return arr.slice();
-        });
-        newArray[i][j] = 'wall';
-        setGraph(newArray);
-      } else {
+      if (nodeType === 'wall') {
         const newArray = graph.map((arr) => {
           return arr.slice();
         });
         newArray[i][j] = 'node';
         setGraph(newArray);
+      } else {
+        const newArray = graph.map((arr) => {
+          return arr.slice();
+        });
+        newArray[i][j] = 'wall';
+        setGraph(newArray);
       }
     }
   };
   const clickNode = () => {
-    if (nodeType === 'start' || nodeType === 'finish') {
+    if (playing || nodeType === 'start' || nodeType === 'finish') {
       return;
     }
-    if (nodeType === 'node') {
+    if (nodeType === 'wall') {
       const newArray = graph.map((arr) => {
         return arr.slice();
       });
-      newArray[i][j] = 'wall';
+      newArray[i][j] = 'node';
       setGraph(newArray);
     } else {
       const newArray = graph.map((arr) => {
         return arr.slice();
       });
-      newArray[i][j] = 'node';
+      newArray[i][j] = 'wall';
       setGraph(newArray);
     }
   };
