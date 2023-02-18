@@ -1,8 +1,8 @@
-import React, { useRef, useEffect, useState } from 'react';
-import Node from './Components/Node';
-import './App.css';
-import { GraphType, NodeType } from './types';
-import dijkstra, { aStar } from './algorithms/dijkstra';
+import React, { useRef, useEffect, useState } from "react";
+import Node from "./Components/Node";
+import "./App.css";
+import { GraphType, NodeType } from "./types";
+import { aStar } from "./algorithms/aStar";
 
 const createGraphWithWalls = (graph: GraphType) => {
   return graph.map((arr) => {
@@ -13,9 +13,9 @@ const createGraphWithWalls = (graph: GraphType) => {
 const createGraph = (row: number, col: number) => {
   const graph: GraphType = new Array(row)
     .fill(null)
-    .map(() => new Array(col).fill('node'));
-  graph[2][2] = 'start';
-  graph[row - 3][col - 3] = 'finish';
+    .map(() => new Array(col).fill("node"));
+  graph[2][2] = "start";
+  graph[row - 3][col - 3] = "finish";
   return graph;
 };
 
@@ -52,7 +52,7 @@ function useVisualizer(graph: GraphType, algorithm: any) {
 function App() {
   const [isMouseDown, setMouseDown] = useState<boolean>(false);
   const [graph, setGraph] = useState<GraphType>(createGraph(19, 40));
-  const [algorithm, setAlgorithm] = useState(() => dijkstra);
+  const [algorithm] = useState(() => aStar);
   const { eachRefStep, displayedGraph, done } = useVisualizer(graph, algorithm);
   const [playing, setPlay] = useState(false);
   const clearGraph = () => {
@@ -80,7 +80,7 @@ function App() {
 
   return (
     <div
-      className='main'
+      className="main"
       onMouseDown={() => setMouseDown(true)}
       onMouseUp={() => setMouseDown(false)}
     >
@@ -103,24 +103,6 @@ function App() {
       <button onClick={updatePlay}>play</button>
       <button onClick={abort}>abort</button>
       <button onClick={clearGraph}>clear</button>
-      <button
-        onClick={() => {
-          setPlay(false);
-          setGraph(createGraphWithWalls(graph));
-          setAlgorithm(() => dijkstra);
-        }}
-      >
-        dijkstra
-      </button>
-      <button
-        onClick={() => {
-          setPlay(false);
-          setGraph(createGraphWithWalls(graph));
-          setAlgorithm(() => aStar);
-        }}
-      >
-        a*
-      </button>
     </div>
   );
 }
